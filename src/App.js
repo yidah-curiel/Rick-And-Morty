@@ -12,7 +12,8 @@ class RickAndMorty extends React.Component {
       searching: false,
       searched: false,
       results: [],
-      searchType: "character"
+      searchType: "character",
+      checked: false,
   };
 
 
@@ -45,7 +46,13 @@ class RickAndMorty extends React.Component {
           this.setState(prevState => ({ page: prevState.page - 1 }), this.fetchResults(this.state.searchType));
   }
 
-  handleTypeChange = e => {this.state.searchType === "episode" ? this.setState({ searchType: "character" }) : this.setState({ searchType: "episode" })}
+  handleTypeChange = e => {
+      !this.state.searched ? 
+        this.state.searchType === "episode" ? 
+            this.setState({ searchType: "character", checked: !this.state.checked }) 
+            : this.setState({ searchType: "episode", checked: !this.state.checked })
+        : console.log(this.state)
+    }
 
   render() {
       return (
@@ -54,7 +61,7 @@ class RickAndMorty extends React.Component {
                   <h1 className="heading">Rick <span>And</span> Morty</h1>
               </header>
               <main>
-                  <SearchInput handleSearchInput={ e => this.handleSearchInput(e.target.value.replace(" ", "+")) } searchType = {this.state.searchType} handleTypeChange={this.handleTypeChange}/>
+                  <SearchInput handleSearchInput={ e => this.handleSearchInput(e.target.value.replace(" ", "+")) } searchType = {this.state.searchType} checked= {this.state.checked} handleTypeChange={this.handleTypeChange}/>
                   { this.state.searching ? <div className="search-loader" /> : null }
                   { this.state.searched && !this.state.searching ? <SearchOutput searchType = {this.state.searchType} results={ this.state.results } firstCharacterRef={ this.firstCharacterRef } /> : null }
                   { this.state.totalPages > 1 && !this.state.searching ? <PageNavigation page={ this.state.page } totalPages={ this.state.totalPages } changePage={ this.changePage } /> : null }
