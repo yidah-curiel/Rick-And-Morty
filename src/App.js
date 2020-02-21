@@ -47,14 +47,17 @@ class RickAndMorty extends React.Component {
   }
 
   handleTypeChange = e => {
-    const newSearch = this.state.searchType === "episode" ? "character" : "episode"
-      !this.state.searched ? 
-            this.setState({ searchType: newSearch, checked: !this.state.checked }) 
-        : this.setState({
-            searchType: newSearch,
-            checked: !this.state.checked,
-        });
-        this.fetchResults(newSearch)
+    var newSearch = this.state.searchType === "episode" ? "character" : "episode";
+    if (!this.state.searched) { 
+        this.setState({ searchType: newSearch, checked: !this.state.checked }) 
+    } else if (this.state.searched && !this.state.searching){
+            this.setState({  searchType: newSearch,
+                             checked: !this.state.checked, 
+                             page: 1, 
+                             searching: true });
+            this.fetchResults(newSearch)
+    }
+    console.log(this.state)
     }
 
   render() {
