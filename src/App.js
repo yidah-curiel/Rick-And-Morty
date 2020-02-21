@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import SearchInput from './components/SearchInput';
+import SearchOutput from './components/SearchOutput';
 
 class RickAndMorty extends React.Component {
 
@@ -24,7 +25,7 @@ class RickAndMorty extends React.Component {
           .then(res => res.json())
           .then(data => this.setState({
               totalPages: data.info.pages,
-              characters: data.results,
+              results: data.results,
               searching: false,
               searched: true
           }))
@@ -32,7 +33,7 @@ class RickAndMorty extends React.Component {
           .catch(() => this.setState({
               page: 1,
               totalPages: 1,
-              characters: [],
+              results: [],
               searching: false,
               searched: true
           }));
@@ -55,7 +56,7 @@ class RickAndMorty extends React.Component {
               <main>
                   <SearchInput handleSearchInput={ e => this.handleSearchInput(e.target.value.replace(" ", "+")) } searchType = {this.state.searchType} handleTypeChange={this.handleTypeChange}/>
                   { this.state.searching ? <div className="search-loader" /> : null }
-                  { this.state.searched && !this.state.searching ? <SearchOutput characters={ this.state.characters } firstCharacterRef={ this.firstCharacterRef } /> : null }
+                  { this.state.searched && !this.state.searching ? <SearchOutput searchType = {this.state.searchType} results={ this.state.results } firstCharacterRef={ this.firstCharacterRef } /> : null }
                   { this.state.totalPages > 1 && !this.state.searching ? <PageNavigation page={ this.state.page } totalPages={ this.state.totalPages } changePage={ this.changePage } /> : null }
               </main>
           </React.Fragment>
@@ -64,60 +65,8 @@ class RickAndMorty extends React.Component {
 }
 
 
-function SearchOutput({ searchType, characters, firstCharacterRef }) {
-  return (
-      <div className="search-output">
-          { searchType === "character" ?
-              characters.length > 0 ?
-                  characters.map((character, index) => <Character character={ character } key={ character.id } index={ index } firstCharacterRef={ firstCharacterRef } />) :
-                  <p className="no-results">No Results Found</p>
-            : <div>episode output</div>
-          }
-      </div>
-  );
-}
 
-function Character({ character, firstCharacterRef, index }) {
-  return (
-      <details className="character-details" >
 
-          <summary className="character-summary" ref={ index === 0 ? firstCharacterRef : null }>{ character.name }</summary>
-
-          <div className="character-container">
-
-              <div className="character-info">
-
-                  <details className="character-info-item" open>
-                      <summary className="character-info-item-summary">Name</summary>
-                      <p className="character-info-item-data">{ character.name }</p>
-                  </details>
-
-                  <details className="character-info-item" open>
-                      <summary className="character-info-item-summary">Species</summary>
-                      <p className="character-info-item-data">{ character.species }</p>
-                  </details>
-
-                  <details className="character-info-item" open>
-                      <summary className="character-info-item-summary">Gender</summary>
-                      <p className="character-info-item-data">{ character.gender }</p>
-                  </details>
-
-                  <details className="character-info-item" open>
-                      <summary className="character-info-item-summary">Location</summary>
-                      <p className="character-info-item-data">{ character.location.name }</p>
-                  </details>
-
-              </div>
-
-              <div className="character-image-container">
-                  <img className="character-image" src={ character.image } alt={ character.name } />
-              </div>
-
-          </div>
-
-      </details>
-  );
-}
 
 function PageNavigation({ page, totalPages, changePage }) {
   return (
