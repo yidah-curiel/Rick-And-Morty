@@ -46,6 +46,15 @@ body {
 }
 
 /* Search */
+.search {
+    display: flex;
+    justify-content: center
+}
+
+.search-checkbox {
+    align-self: center;
+    padding-left: 10px;
+}
 
 .search-loader {
 	width: 50px;
@@ -60,6 +69,12 @@ body {
 .search-input-label {
     display: block;
     font-size: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.checkbox-label {
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .search-input {

@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import SearchInput from './components/SearchInput';
 
 class RickAndMorty extends React.Component {
 
@@ -9,15 +10,17 @@ class RickAndMorty extends React.Component {
       searchTerm: '',
       searching: false,
       searched: false,
-      characters: []
-  }
+      results: [],
+      searchType: "character"
+  };
+
 
   firstCharacterRef = React.createRef();
 
-  handleSearchInput = debounce(searchTerm => this.setState({ page: 1, searchTerm, searching: true }, this.fetchCharacters));
+  handleSearchInput = debounce(searchTerm => this.setState({ page: 1, searchTerm, searching: true }, this.fetchResults(this.state.searchType)));
 
-  fetchCharacters = () => {
-      fetch(`https://rickandmortyapi.com/api/character/?page=${this.state.page}&name=${this.state.searchTerm}`)
+  fetchResults = (searchType) => {
+      fetch(`https://rickandmortyapi.com/api/${searchType}/?page=${this.state.page}&name=${this.state.searchTerm}`)
           .then(res => res.json())
           .then(data => this.setState({
               totalPages: data.info.pages,
@@ -37,9 +40,11 @@ class RickAndMorty extends React.Component {
 
   changePage = e => {
       Array.from(e.target.classList).includes('page-btn-next') ?
-          this.setState(prevState => ({ page: prevState.page + 1 }), this.fetchCharacters) :
-          this.setState(prevState => ({ page: prevState.page - 1 }), this.fetchCharacters);
+          this.setState(prevState => ({ page: prevState.page + 1 }), this.fetchResults(this.state.searchType)) :
+          this.setState(prevState => ({ page: prevState.page - 1 }), this.fetchResults(this.state.searchType));
   }
+
+  handleTypeChange = e => {this.state.searchType === "episode" ? this.setState({ searchType: "character" }) : this.setState({ searchType: "episode" })}
 
   render() {
       return (
@@ -48,7 +53,7 @@ class RickAndMorty extends React.Component {
                   <h1 className="heading">Rick <span>And</span> Morty</h1>
               </header>
               <main>
-                  <SearchInput handleSearchInput={ e => this.handleSearchInput(e.target.value.replace(" ", "+")) } />
+                  <SearchInput handleSearchInput={ e => this.handleSearchInput(e.target.value.replace(" ", "+")) } searchType = {this.state.searchType} handleTypeChange={this.handleTypeChange}/>
                   { this.state.searching ? <div className="search-loader" /> : null }
                   { this.state.searched && !this.state.searching ? <SearchOutput characters={ this.state.characters } firstCharacterRef={ this.firstCharacterRef } /> : null }
                   { this.state.totalPages > 1 && !this.state.searching ? <PageNavigation page={ this.state.page } totalPages={ this.state.totalPages } changePage={ this.changePage } /> : null }
@@ -58,22 +63,15 @@ class RickAndMorty extends React.Component {
   }
 }
 
-function SearchInput({ handleSearchInput }) {
-  return (
-      <div className="search">
-          <label htmlFor="search-input" className="search-input-label">Character Search:</label>
-          <input type="text" id="search-input" className="search-input" placeholder="e.g. 'rick'" spellCheck="false" onChange={ handleSearchInput } />
-      </div>
-  );
-}
 
-function SearchOutput({ characters, firstCharacterRef }) {
+function SearchOutput({ searchType, characters, firstCharacterRef }) {
   return (
       <div className="search-output">
-          {
+          { searchType === "character" ?
               characters.length > 0 ?
                   characters.map((character, index) => <Character character={ character } key={ character.id } index={ index } firstCharacterRef={ firstCharacterRef } />) :
                   <p className="no-results">No Results Found</p>
+            : <div>episode output</div>
           }
       </div>
   );
