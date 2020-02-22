@@ -164,8 +164,11 @@ body {
 /* Characters */
 
 .detailsLink {
+    display: flex;
+    flex-direction: column;
     font-family: 'Source Sans Pro', sans-serif;
     color: white;
+    font-size: x-large;
     font-weight: 400;
 }
 
