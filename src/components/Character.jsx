@@ -29,6 +29,7 @@ export default function({ character, firstCharacterRef, index }) {
                         <summary className="character-info-item-summary">Location</summary>
                         <p className="character-info-item-data">{ character.location.name }</p>
                     </details>
+                    
   
                 </div>
   

@@ -1,5 +1,5 @@
 import React from "react";
-import Character from './Character';
+import Character from '../components/Character';
 
 class Characters extends React.Component {
 

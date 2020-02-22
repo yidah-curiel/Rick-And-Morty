@@ -1,6 +1,6 @@
 import React from "react";
-import SearchInput from './SearchInput';
-import SearchOutput from './SearchOutput';
+import SearchInput from '../components/SearchInput';
+import SearchOutput from '../components/SearchOutput';
 
 class Home extends React.Component {
 

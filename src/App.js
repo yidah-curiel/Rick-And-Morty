@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Home from './components/Home';
-import EpisodeCharacters from './components/EpisodeCharacters';
+import Home from './views/Home';
+import EpisodeCharacters from './views/EpisodeCharacters';
 import { Route } from 'react-router-dom';
 
 
