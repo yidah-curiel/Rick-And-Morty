@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
 export default function ({ episode, firstCharacterRef, index }) {
-    const list = episode.characters.map(e => e.slice(42))
+    const list = episode.characters.map ?
+                    episode.characters.map(e => e.slice(42))
+                    : episode.characters[0].slice(42)
     return (
         <details className="character-details" >
 
@@ -30,7 +31,7 @@ export default function ({ episode, firstCharacterRef, index }) {
 
                     <details className="character-info-item" open>
                         <summary className="character-info-item-summary">Characters</summary>
-
+                        <p className="character-info-item-data">{list}</p>
                         <Link to={{
                             pathname: `/results/${list}`,
                             state: {

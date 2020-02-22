@@ -15,15 +15,21 @@ class Results extends React.Component {
     componentDidMount() {
         const { list } = this.props.match.params
         const {searchType} = this.props.location.state
+        console.log(list, searchType)
         
-        fetch(`https://rickandmortyapi.com/api/${searchType}/${list}/?page=${this.state.page}`)
+        
+        fetch(`https://rickandmortyapi.com/api/${searchType}/${list}`)
             .then(res => res.json())
-            .then(data => this.setState(() => ({ results: data, searched: true })))
+            .then(data => 
+                this.setState({ results: data, searched: true }))
             .then(() => this.firstCharacterRef.current.focus())
             .catch(() => this.setState({
                 results: [],
                 searched: true
             }));
+
+        
+            console.log(this.state)
     }
 
 
@@ -31,6 +37,8 @@ class Results extends React.Component {
 
     render() {
         const {searchType, resultType} = this.props.location.state
+        console.log(this.props.location.state)
+        console.log(this.props.match.params.list)
         return (
             <React.Fragment>
                 <header>
