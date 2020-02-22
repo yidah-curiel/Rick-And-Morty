@@ -2,9 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function ({ episode, firstCharacterRef, index }) {
-    const list = episode.characters.map ?
-                    episode.characters.map(e => e.slice(42))
-                    : episode.characters[0].slice(42)
+    var list; 
+    if (episode.characters && episode.characters.length > 1) {
+        list = episode.characters.map(e => e.slice(42))
+    } else if(episode.characters && episode.characters.length === 1){
+        list = episode.characters[0].slice(42)
+    }
     return (
         <details className="character-details" >
 
@@ -31,15 +34,17 @@ export default function ({ episode, firstCharacterRef, index }) {
 
                     <details className="character-info-item" open>
                         <summary className="character-info-item-summary">Characters</summary>
-                        <p className="character-info-item-data">{list}</p>
                         <Link to={{
-                            pathname: `/results/${list}`,
+                            pathname: `/characters/${list}`,
                             state: {
                                 title: episode.name,
                                 searchType: "character",
                                 resultType: "Character"
                             }
-                        }} className="detailsLink">{`Click to view all characters that appear in ${episode.name}`}</Link>
+                        }} className="detailsLink">
+                            <div>Click to view all characters that</div>
+                            <div>appear in <span className="character-info-item-summary">{episode.name}</span></div>
+                        </Link>
                     </details>
 
                 </div>

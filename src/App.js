@@ -12,7 +12,8 @@ function App(){
         <>
             <Route exact path="/" component={Home} /> 
             <Route exact path="/search/:searchType" component={Search} /> 
-            <Route exact path="/results/:list" component={NestedResults} /> 
+            <Route exact path="/episodes/:list" component={NestedResults} /> 
+            <Route exact path="/characters/:list" component={NestedResults} /> 
         </> 
     )
 }

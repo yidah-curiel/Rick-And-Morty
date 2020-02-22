@@ -26,7 +26,10 @@ class Search extends React.Component {
 
     firstCharacterRef = React.createRef();
 
-    handleSearchInput = debounce(searchTerm => this.setState({ page: 1, searchTerm, searching: true }, this.fetchResults(this.props.match.params.searchType)));
+    handleSearchInput = searchTerm => 
+        this.setState({ page: 1, searchTerm, searching: true }, 
+            debounce(()=>this.fetchResults(this.props.match.params.searchType))
+        );
 
     handleSearchFilter = (e) => {
         const { name, value } = e.target
@@ -78,8 +81,8 @@ class Search extends React.Component {
     changePage = e => {
         const { searchType } = this.props.match.params;
         Array.from(e.target.classList).includes('page-btn-next') ?
-            this.setState(prevState => ({ page: prevState.page + 1 }), this.fetchResults(searchType)) :
-            this.setState(prevState => ({ page: prevState.page - 1 }), this.fetchResults(searchType));
+            this.setState(prevState => ({ page: prevState.page + 1 }), this.fetchResults(searchType, this.state.filters)) :
+            this.setState(prevState => ({ page: prevState.page - 1 }), this.fetchResults(searchType, this.state.filters));
     }
 
     render() {
