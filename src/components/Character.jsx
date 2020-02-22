@@ -1,6 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 
 export default function({ character, firstCharacterRef, index }) {
+    const list = character.episode.map(e => e.slice(40))
     return (
         <details className="character-details" >
   
@@ -29,7 +32,18 @@ export default function({ character, firstCharacterRef, index }) {
                         <summary className="character-info-item-summary">Location</summary>
                         <p className="character-info-item-data">{ character.location.name }</p>
                     </details>
-                    
+                    <details className="character-info-item" open>
+                        <summary className="character-info-item-summary">Episodes</summary>
+
+                        <Link to={{
+                            pathname: `/results/${list}`,
+                            state: {
+                                title: character.name,
+                                searchType: "episode",
+                                resultType: "Episode"
+                            }
+                        }} className="detailsLink">{`Click to view all episodes ${character.name} is in`}</Link>
+                    </details>
   
                 </div>
   

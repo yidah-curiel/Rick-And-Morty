@@ -32,11 +32,13 @@ export default function ({ episode, firstCharacterRef, index }) {
                         <summary className="character-info-item-summary">Characters</summary>
 
                         <Link to={{
-                            pathname: `/characters/${list}`,
+                            pathname: `/results/${list}`,
                             state: {
-                                title: episode.name
+                                title: episode.name,
+                                searchType: "character",
+                                resultType: "Character"
                             }
-                        }} >click to view all characters</Link>
+                        }} className="detailsLink">{`Click to view all characters that appear in ${episode.name}`}</Link>
                     </details>
 
                 </div>
