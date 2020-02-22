@@ -13,15 +13,43 @@ class Search extends React.Component {
         searched: false,
         results: [],
         checked: false,
+        filters: [],
     };
   
 
     firstCharacterRef = React.createRef();
   
-    handleSearchInput = debounce(searchTerm => this.setState({ page: 1, searchTerm, searching: true }, this.fetchResults( this.props.match.params.searchType)));
+    handleSearchInput = debounce(searchTerm => this.setState({ page: 1, searchTerm, searching: true }, this.fetchResults( this.props.match.params.searchType, this.state.filters)));
   
-    fetchResults = (searchType) => {
-        fetch(`https://rickandmortyapi.com/api/${searchType}/?page=${this.state.page}&name=${this.state.searchTerm}`)
+    handleSearchFilter = debounce(e => {
+        let newFilters = [...this.state.filters];
+        newFilters.push([e.name,e.value]);
+        console.log(newFilters)
+        this.setState({
+            page: 1,
+            searching: true,
+            filters: newFilters
+        },
+            this.fetchResults( this.props.match.params.searchType, this.state.filters))
+    })
+
+    generateURL = (searchType, filters) => {
+        const {page, searchTerm} = this.state
+        const baseURL = `https://rickandmortyapi.com/api/${searchType}/?page=${page}&name=${searchTerm}`;
+        if (filters === []) return baseURL;
+        var finalURL = baseURL.concat(`&${filters[0][0]}=${filters[0][1]}`)
+        console.log(filters)
+        for( let i = 1; i < filters.length; i++){
+            finalURL+=(`&${filters[i][0]}=${filters[i][1]}`)
+            console.log(finalURL) 
+        }
+        console.log(finalURL)    
+        return finalURL      
+    }
+
+    fetchResults = (searchType, filters) => {
+        let URL = this.generateURL(searchType, filters); 
+        fetch(URL)
             .then(res => res.json())
             .then(data => this.setState({
                 totalPages: data.info.pages,
@@ -51,7 +79,7 @@ class Search extends React.Component {
         return (
             <React.Fragment>
                 <main>
-                    <SearchInput handleSearchInput={ e => this.handleSearchInput(e.target.value.replace(" ", "+")) } searchType = {searchType} checked= {this.state.checked} handleTypeChange={this.handleTypeChange}/>
+                    <SearchInput handleSearchInput={ e => this.handleSearchInput(e.target.value.replace(" ", "+")) } searchType = {searchType} handleSearchFilter={this.handleSearchFilter}/>
                     { this.state.searching ? <div className="search-loader" /> : null }
                     { this.state.searched && !this.state.searching ? <SearchOutput searchType = {searchType} results={ this.state.results } firstCharacterRef={ this.firstCharacterRef } /> : null }
                     { this.state.totalPages > 1 && !this.state.searching ? <PageNavigation page={ this.state.page } totalPages={ this.state.totalPages } changePage={ this.changePage } /> : null }
@@ -65,7 +93,7 @@ class Search extends React.Component {
   
   
   
-  function debounce(func, wait = 800) {
+  function debounce(func, wait = 600) {
   
     let timeout;
   

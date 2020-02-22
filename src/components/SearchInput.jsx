@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ({ handleSearchInput, searchType }) {
+export default function ({ handleSearchInput, handleSearchFilter, searchType }) {
     const SearchType = searchType.charAt(0).toUpperCase() + searchType.slice(1)
     function renderPlaceholder (){
         switch(searchType) {
@@ -9,7 +9,7 @@ export default function ({ handleSearchInput, searchType }) {
             case "episode":
                 return ("e.g. 'Pilot'")
             default:
-                return ("e.g. 'Earth'")
+                return ("e.g. 'Citadel of Ricks'")
           }
     }
 
@@ -18,6 +18,9 @@ export default function ({ handleSearchInput, searchType }) {
             <div>
                 <label htmlFor="search-input" className="search-input-label">{`${SearchType} Search`}</label>
                 <input type="text" id="search-input" className="search-input" placeholder={renderPlaceholder()} spellCheck="false" onChange={handleSearchInput} />
+            </div>
+            <div>
+                Filter By:
             </div>
         </div>
     );
