@@ -1,44 +1,43 @@
 import React from 'react';
-import Character from './Character';
-import Episode from './Episode';
-import Location from './Location';
+import RenderCards from './RenderCards';
 
-export default function ({ searchType, results, firstCharacterRef }) {
+import { connect } from 'react-redux';
 
-    function renderCard(searchType, results, firstCharacterRef) {
-        console.log(results)
-        switch (searchType) {
-            case "character":
-                return (results.length > 0 ? results.map((character, index) =>
-                    <Character character={character} key={character.id} index={index} firstCharacterRef={firstCharacterRef} />)
-                    : <Character character={results} key={results.id} index={0} firstCharacterRef={firstCharacterRef} />)
-
-            case "episode":
-                return (results.length > 0 ? results.map((episode, index) =>
-                    <Episode episode={episode} key={episode.id} index={index} firstCharacterRef={firstCharacterRef} />)
-                    : <Episode episode={results} key={results.id} index={0} firstCharacterRef={firstCharacterRef} />)
-            default:
-                return (results.length > 0 ? results.map((location, index) =>
-                    <Location location={location} key={location.id} index={index} firstCharacterRef={firstCharacterRef} />)
-                    :
-                    <Location location={results} key={results.id} index={0} firstCharacterRef={firstCharacterRef} />)
-        }
+function SearchOutput ({ renderType, searchType, results, nestedResults }) {
+    const resultsToRender = renderType === "nested" ? nestedResults : results;
+    function renderCard(resultsToRender) {
+                return (resultsToRender.length > 1 ? resultsToRender.map((result, index) =>
+                <RenderCards card={result} searchType={searchType} key={result.id} index={index} />)
+                : <RenderCards card={resultsToRender[0]} searchType={searchType} key={resultsToRender.id} index={0} />)
+        
     } 
 
     return (
         <div className="search-output">
-            { Array.isArray(results) && results.length < 1 ?
+            { resultsToRender.length < 1 ?
                 <div>
                     <p className="no-results">No Results</p>
-                    <audio autoplay>
+                    <audio autoPlay={true}>
                         <source src="awwbitch.wav" type="audio/wav" />
                     </audio>
                </div>
                 :
-                renderCard(searchType, results, firstCharacterRef)
+                renderCard(resultsToRender)
                 
                     }
         </div>
                     );
-          }
+    }
         
+    const mapState = state => {
+
+        return {
+            searchType: state.searchType,
+            results: state.results,
+            nestedResults: state.nestedResults
+        };
+    };
+    
+ 
+
+    export default connect(mapState) (SearchOutput)
