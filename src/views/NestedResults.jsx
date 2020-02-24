@@ -1,22 +1,14 @@
-import React from "react";
+import React, {useEffect } from "react";
 import SearchOutput from '../components/SearchOutput';
 
 
-class Results extends React.Component {
+export default function() {
 
-    state = {
-        results: [],
-        searched: false
-    };
-
-
-    firstCharacterRef = React.createRef()
-
-    componentDidMount() {
+    useEffect(() =>{
         const { list } = this.props.match.params
         const { searchType } = this.props.location.state
         console.log(list, searchType)
-
+        
 
         fetch(`https://rickandmortyapi.com/api/${searchType}/${list}`)
             .then(res => res.json())
@@ -30,12 +22,10 @@ class Results extends React.Component {
 
 
         console.log(this.state)
-    }
+    })
 
 
 
-
-    render() {
         const { searchType, resultType } = this.props.location.state
         console.log(this.props.location.state)
         console.log(this.props.match.params.list)
@@ -52,9 +42,6 @@ class Results extends React.Component {
                 </main>
             </React.Fragment>
         );
-    }
+
 }
 
-
-
-export default Results
