@@ -3,16 +3,16 @@ import Card from './Card';
 import { connect } from 'react-redux';
 import { nestedSearch } from '../redux-saga/actions';
 import { Link } from 'react-router-dom';
-
+import { character, episode, location } from '../redux-saga/request_types';
 
 function RenderCards({ nestedSearch, card, index, searchType }) {
 
     const list = () => {
-        const filtNum = searchType === "character" ? 40 : 42
+        const filtNum = searchType === character ? 40 : 42
         var param = "episode";
-        if (searchType === "location") {
+        if (searchType === location) {
             param = "residents"
-        } else if (searchType === "episode") {
+        } else if (searchType === episode) {
             param = "characters"
         }
 
@@ -68,7 +68,7 @@ function RenderCards({ nestedSearch, card, index, searchType }) {
 
     return (
         <>
-            {searchType === "character" ?
+            {searchType === character ?
                 <Card onClick={onClick}
                     index={index}
                     image={card.image}
@@ -82,7 +82,7 @@ function RenderCards({ nestedSearch, card, index, searchType }) {
                     ]}
                     list={{ name: "Episodes", value: renderListLink() }}
                 />
-                : searchType === "episode" ?
+                : searchType === episode ?
                     <Card onClick={onClick}
                         index={index}
                         name={card.name}

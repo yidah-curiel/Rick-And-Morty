@@ -24,7 +24,9 @@ export default function (state = {}, action) {
     case CHANGE_SEARCH_TYPE:
       return {
         ...state,
-        searchType: action.searchType
+        searchType: action.searchType,
+        results: [],
+        nestedResults: []
       }
     case RESET_PAGE:
       return {
