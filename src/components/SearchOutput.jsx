@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 function SearchOutput ({ renderType, searchType, results, nestedResults }) {
     const resultsToRender = renderType === "nested" ? nestedResults : results;
+    console.log(resultsToRender)
     function renderCard(resultsToRender) {
                 return (resultsToRender.length > 1 ? resultsToRender.map((result, index) =>
                 <RenderCards card={result} searchType={searchType} key={result.id} index={index} />)
@@ -14,7 +15,7 @@ function SearchOutput ({ renderType, searchType, results, nestedResults }) {
 
     return (
         <div className="search-output">
-            { resultsToRender.length < 1 ?
+            {  !resultsToRender || resultsToRender.length < 1 ?
                 <div>
                     <p className="no-results">No Results</p>
                     <audio autoPlay={true}>

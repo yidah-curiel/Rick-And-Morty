@@ -35,13 +35,6 @@ class Search extends React.Component {
     }
 
 
-    changePage = e => {
-        const { searchType } = this.props.match.params;
-        Array.from(e.target.classList).includes('page-btn-next') ?
-            this.setState(prevState => ({ page: prevState.page + 1 }), this.showResults(searchType, this.state.filters)) :
-            this.setState(prevState => ({ page: prevState.page - 1 }), this.showResults(searchType, this.state.filters));
-    }
-
     render() {
         const { searchType } = this.props.match.params
         return (
@@ -54,19 +47,11 @@ class Search extends React.Component {
                     />
                     {this.props.searching ? <div className="search-loader" /> : null}
                     {this.props.searched && !this.props.searching ?
-                        <SearchOutput
-                            searchType={searchType}
-                            results={this.props.results}
-                            firstCharacterRef={this.firstCharacterRef}
-                        />
+                        <SearchOutput/>
                         : null
                     }
                     {this.props.totalPages > 1 && !this.props.searching ?
-                        <PageNavigation
-                            page={this.props.page}
-                            totalPages={this.props.totalPages}
-                            changePage={this.changePage}
-                        />
+                        <PageNavigation/>
                         : null
                     }
                 </main>
