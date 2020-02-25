@@ -82,16 +82,19 @@ body {
 }
 
 .search-filters {
-    width: 40%;
+    width: 50%;
     align-self: center;
     align-items: flex-start;
     margin-left: 2%;
     font-family: 'Courier New', Courier, monospace;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-evenly;
     padding-bottom: 2%;
+    flex-wrap: nowrap
 }
+
 
 .search-filters h4 {
     font-size: large;
@@ -106,9 +109,9 @@ body {
     padding: 2px;
 }
 
-.filter-input {
+.filter-inputs {
     width: 100%;
-    margin-left: 3px;
+    margin-left: 3px
 }
 
 .filter-input-label {
