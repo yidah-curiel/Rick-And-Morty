@@ -6,16 +6,16 @@ import { character, episode, location } from '../redux-saga/request_types';
 
 const images = [
   {
-    url: './images/episodes.jpg',
-    title: 'Search Episodes',
-    type: episode,
-    to: "/search/episode"
-  },
-  {
     url: './images/characters.jpg',
     title: 'Search Characters',
     type: character,
     to: "/search/character"
+  },
+  {
+    url: './images/episodes.jpg',
+    title: 'Search Episodes',
+    type: episode,
+    to: "/search/episode"
   },
   {
     url: './images/locations.jpg',

@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { changeSearchType } from '../redux-saga/actions';
-//import { Button } from "@material-ui/core";
 
 import HomeNav from '../utils/HomeNav';
 
