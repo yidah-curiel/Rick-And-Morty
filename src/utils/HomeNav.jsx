@@ -8,21 +8,18 @@ const images = [
   {
     url: './images/episodes.jpg',
     title: 'Search Episodes',
-    width: '30%',
     type: episode,
     to: "/search/episode"
   },
   {
     url: './images/characters.jpg',
     title: 'Search Characters',
-    width: '30%',
     type: character,
     to: "/search/character"
   },
   {
     url: './images/locations.jpg',
     title: 'Search Locations',
-    width: '30%',
     type: location,
     to: "/search/location"
   },
@@ -116,7 +113,7 @@ function HomeNav({ onClick }) {
           className={classes.image}
           focusVisibleClassName={classes.focusVisible}
           style={{
-            width: image.width
+            width: '50%'//image.width
           }}
           onClick={()=>onClick(image.type, image.to)}
         >
