@@ -25,7 +25,7 @@ function SearchInput({ handleSearchInput, handleSearchFilter, searchType }) {
                 <label htmlFor="search-input" className="search-input-label">{`${SearchType} Search`}</label>
                 <input type="text" id="search-input" className="search-input" placeholder={renderPlaceholder()} spellCheck="false" onChange={handleSearchInput} />
             </div>
-            <Filters searchType={searchType}/>
+            <Filters searchType={searchType} handleSearchFilter={handleSearchFilter}/>
         </div>
     );
 }
