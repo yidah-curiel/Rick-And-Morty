@@ -1,15 +1,15 @@
 import React from 'react';
 import RenderCards from './RenderCards';
-
 import { connect } from 'react-redux';
 
-function SearchOutput ({ renderType, searchType, results, nestedResults }) {
+function SearchOutput ({ renderType, searchType, nestedType, results, nestedResults }) {
     const resultsToRender = renderType === "nested" ? nestedResults : results;
+    const typeToRender = renderType === "nested" ? nestedType : searchType;
     console.log(resultsToRender)
     function renderCard(resultsToRender) {
                 return (resultsToRender.length > 1 ? resultsToRender.map((result, index) =>
-                <RenderCards card={result} searchType={searchType} key={result.id} index={index} />)
-                : <RenderCards card={resultsToRender[0]} searchType={searchType} key={resultsToRender.id} index={0} />)
+                <RenderCards card={result} searchType={typeToRender} key={result.id} index={index} />)
+                : <RenderCards card={resultsToRender[0]} searchType={typeToRender} key={resultsToRender.id} index={0} />)
         
     } 
 
@@ -19,7 +19,7 @@ function SearchOutput ({ renderType, searchType, results, nestedResults }) {
                 <div>
                     <p className="no-results">No Results</p>
                     <audio autoPlay={true}>
-                        <source src="awwbitch.wav" type="audio/wav" />
+                        <source src='./awwbitch.wav' type="audio/wav" />
                     </audio>
                </div>
                 :
@@ -35,7 +35,8 @@ function SearchOutput ({ renderType, searchType, results, nestedResults }) {
         return {
             searchType: state.searchType,
             results: state.results,
-            nestedResults: state.nestedResults
+            nestedResults: state.nestedResults,
+            nestedType: state.nestedType
         };
     };
     
