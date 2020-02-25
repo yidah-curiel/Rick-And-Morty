@@ -45,7 +45,7 @@ function RenderCards({ nestedSearch, card, index, searchType }) {
                     </Link>
                 )
             case "location":
-                if (list() === []){
+                if (card.residents.length < 1){
                         return (
                             <p className="card-info-item-data">  
                             <span className="card-info-item-summary">{card.name}</span> has no known residents

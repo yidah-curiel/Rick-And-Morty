@@ -4,6 +4,11 @@ import {
     AllSpecies,
     AllTypes
 } from '../utils/filters';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import { makeStyles } from '@material-ui/core/styles';
+
 
 export default function ({ handleSearchInput, handleSearchFilter, searchType }) {
     const SearchType = searchType.charAt(0).toUpperCase() + searchType.slice(1)
@@ -19,36 +24,36 @@ export default function ({ handleSearchInput, handleSearchFilter, searchType }) 
         }
     }
 
-    /*  const [gender, setGender] = React.useState('');
-      const handleGenderChange = event => {
-          setGender(event.target.value);
-        };*/
+    const useStyles = makeStyles({
+        root: {
+            color: 'white'
+        },
+    });
+
+    const classes = useStyles();
 
     function renderFilters() {
 
         switch (searchType) {
             case "character":
-
                 return (
                     <>
                         <div>
-                            <label htmlFor="filter-input" className="filter-input-label">Species</label>
-                            <select
-                                id="filter-input"
-                                className="filter-input"
+                            <InputLabel className={classes.root}>Species</InputLabel >
+                            <Select
                                 onChange={handleSearchFilter}
-                                name="species" >
-                                <option value="" defaultValue>All</option>
+                                name="species"
+                            >
+                                <MenuItem value="" >All</MenuItem>
                                 {AllSpecies.map((e, i) =>
-                                    <option id={i} value={e}>{e}</option>
+                                    <MenuItem key={i} value={e}>{e}</MenuItem>
                                 )}
-                            </select>
+                            </Select>
+
                         </div>
                         <div>
-                            <label htmlFor="filter-input" className="filter-input-label">Gender</label>
-                            <select
-                                id="filter-input"
-                                className="filter-input"
+                            <InputLabel className={classes.root}>Gender</InputLabel>
+                            <Select
                                 onChange={handleSearchFilter}
                                 name="gender" >
                                 <option value="" defaultValue>All</option>
@@ -56,51 +61,50 @@ export default function ({ handleSearchInput, handleSearchFilter, searchType }) 
                                 <option value="male">Male</option>
                                 <option value="genderless">Genderless </option>
                                 <option value="unknown">Unknown </option>
-                            </select>
+                            </Select>
                         </div>
                     </>
                 )
             case "episode":
                 return (<div>
-                    <label htmlFor="filter-input" className="filter-input-label">Season</label>
-                    <select
-                        id="filter-input"
-                        className="filter-input"
+                    <InputLabel className={classes.root}>Season</InputLabel>
+                    <Select
+                        className="filter-inputs"
                         onChange={handleSearchFilter}
                         name="episode" >
                         <option value="" defaultValue>All</option>
                         <option value="S01">Season 1</option>
                         <option value="S02">Season 2</option>
                         <option value="S03">Season 3</option>
-                    </select>
+                    </Select>
                 </div>
                 )
             default:
                 return (
-                    <div>
-                        <label htmlFor="filter-input" className="filter-input-label">Type</label>
-                        <select
-                            id="filter-input"
-                            className="filter-input"
-                            onChange={handleSearchFilter}
-                            name="type" >
-                            <option value="" defaultValue>All</option>
-                            {AllTypes.map((e, i) =>
-                                <option id={i} value={e}>{e}</option>
-                            )}
-                        </select>
-                        <label htmlFor="filter-input" className="filter-input-label">Dimension</label>
-                        <select
-                            id="filter-input"
-                            className="filter-input"
-                            onChange={handleSearchFilter}
-                            name="dimension" >
-                            <option value="" defaultValue>All</option>
-                            {AllDimensions.map((e, i) =>
-                                <option id={i} value={e}>{e}</option>
-                            )}
-                        </select>
-                    </div>
+                    <>
+                        <div>
+                            <InputLabel className={classes.root}>Type</InputLabel>
+                            <Select
+                                onChange={handleSearchFilter}
+                                name="type" >
+                                <option value="" defaultValue>All</option>
+                                {AllTypes.map((e, i) =>
+                                    <option id={i} value={e}>{e}</option>
+                                )}
+                            </Select>
+                        </div>
+                        <div>
+                            <InputLabel className={classes.root}>Dimension</InputLabel>
+                            <Select
+                                onChange={handleSearchFilter}
+                                name="dimension" >
+                                <option value="All" defaultValue>All</option>
+                                {AllDimensions.map((e, i) =>
+                                    <option id={i} value={e}>{e}</option>
+                                )}
+                            </Select>
+                        </div>
+                    </>
                 )
         }
 
@@ -113,7 +117,7 @@ export default function ({ handleSearchInput, handleSearchFilter, searchType }) 
                 <input type="text" id="search-input" className="search-input" placeholder={renderPlaceholder()} spellCheck="false" onChange={handleSearchInput} />
             </div>
             <div className="search-filters">
-                <h4>Filter By:</h4>
+                <InputLabel className={classes.root}>Filter By:</InputLabel>
                 {renderFilters()}
             </div>
         </div>
