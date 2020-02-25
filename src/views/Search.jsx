@@ -2,88 +2,38 @@ import React from "react";
 import SearchInput from '../components/SearchInput';
 import SearchOutput from '../components/SearchOutput';
 import PageNavigation from '../utils/PageNavigation';
+import { connect } from "react-redux";
+import { onSearch } from '../redux-saga/actions';
 
 class Search extends React.Component {
 
     state = {
-        page: 1,
-        totalPages: 1,
         searchTerm: '',
-        searching: false,
-        searched: false,
-        results: [],
-        checked: false,
         filters: {
-            "gender": "",
-            "species": "",
-            "status": "",
-            "type": "",
-            "dimension": "",
-            "episode": ""
         }
     };
 
 
-    firstCharacterRef = React.createRef();
-
-    handleSearchInput = searchTerm => 
-        this.setState({ page: 1, searchTerm, searching: true }, 
-            debounce(()=>this.fetchResults(this.props.match.params.searchType))
-        );
+    handleSearchInput = searchTerm => {
+        const { page } = this.props
+        const { searchType } = this.props.match.params
+        this.setState({ searchTerm });
+        this.props.onSearch(searchType, page, searchTerm, this.state.filters)
+    }
 
     handleSearchFilter = (e) => {
         const { name, value } = e.target
-        let newFilters = { ...this.state.filters };
+        const { page } = this.props
+        const { searchType } = this.props.match.params
+        const { filters, searchTerm } = this.state
+        let newFilters = { ...filters };
         newFilters[name] = value
-        console.log(newFilters)
         this.setState({
-            page: 1,
-            searching: true,
             filters: newFilters
-        },
-            debounce(() => this.fetchResults(this.props.match.params.searchType, this.state.filters)))
+        })
+        this.props.onSearch(searchType, page, searchTerm, newFilters)
     }
 
-    generateURL = (searchType, filters) => {
-        const { page, searchTerm } = this.state
-        var baseURL = `https://rickandmortyapi.com/api/${searchType}/?page=${page}&name=${searchTerm}`;
-        if (!filters) return baseURL;
-        for (var filter in filters) {
-            if (filters[filter] !== "") {
-                baseURL += (`&${filter}=${filters[filter]}`)
-            }
-        }
-        console.log(baseURL)
-        return baseURL
-    }
-
-    fetchResults = (searchType, filters) => {
-        let URL = this.generateURL(searchType, filters);
-        console.log(URL)
-        fetch(URL)
-            .then(res => res.json())
-            .then(data => this.setState({
-                totalPages: data.info.pages,
-                results: data.results,
-                searching: false,
-                searched: true
-            }))
-            .then(() => this.firstCharacterRef.current.focus())
-            .catch(() => this.setState({
-                page: 1,
-                totalPages: 1,
-                results: [],
-                searching: false,
-                searched: true
-            }));
-    }
-
-    changePage = e => {
-        const { searchType } = this.props.match.params;
-        Array.from(e.target.classList).includes('page-btn-next') ?
-            this.setState(prevState => ({ page: prevState.page + 1 }), this.fetchResults(searchType, this.state.filters)) :
-            this.setState(prevState => ({ page: prevState.page - 1 }), this.fetchResults(searchType, this.state.filters));
-    }
 
     render() {
         const { searchType } = this.props.match.params
@@ -95,21 +45,13 @@ class Search extends React.Component {
                         searchType={searchType}
                         handleSearchFilter={this.handleSearchFilter}
                     />
-                    {this.state.searching ? <div className="search-loader" /> : null}
-                    {this.state.searched && !this.state.searching ?
-                        <SearchOutput
-                            searchType={searchType}
-                            results={this.state.results}
-                            firstCharacterRef={this.firstCharacterRef}
-                        />
+                    {this.props.searching ? <div className="search-loader" /> : null}
+                    {this.props.searched && !this.props.searching ?
+                        <SearchOutput/>
                         : null
                     }
-                    {this.state.totalPages > 1 && !this.state.searching ?
-                        <PageNavigation
-                            page={this.state.page}
-                            totalPages={this.state.totalPages}
-                            changePage={this.changePage}
-                        />
+                    {this.props.totalPages > 1 && !this.props.searching ?
+                        <PageNavigation/>
                         : null
                     }
                 </main>
@@ -118,27 +60,26 @@ class Search extends React.Component {
     }
 }
 
-function debounce(func, wait = 800) {
 
-    let timeout;
 
-    return function () {
-
-        const context = this,
-            args = arguments;
-
-        clearTimeout(timeout);
-
-        timeout = setTimeout(() => {
-
-            timeout = null;
-
-            func.apply(context, args);
-
-        }, wait);
+const mapStateToProps = state => {
+    return {
+        results: state.results,
+        searching: state.searching,
+        searched: state.searched,
+        totalPages: state.totalPages,
+        page: state.page
     };
-}
+};
 
 
+const mapDispachToProps = dispatch => {
+    return {
+        onSearch: (searchType, page, searchTerm, filters) => dispatch(onSearch(searchType, page, searchTerm, filters))
+    };
+};
 
-export default Search;
+export default connect(
+    mapStateToProps,
+    mapDispachToProps
+)(Search);

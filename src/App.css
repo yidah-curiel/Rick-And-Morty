@@ -161,7 +161,7 @@ body {
     margin: 0 auto 20px;
 }
 
-/* Characters */
+/* Cards */
 
 .detailsLink {
     display: flex;
@@ -172,11 +172,11 @@ body {
     font-weight: 400;
 }
 
-.character-details {
+.card-details {
     border-bottom: 2px solid #151515;
 }
 
-.character-summary {
+.card-summary {
     font-size: 28px;
     font-weight: 600;
     line-height: 1.2;
@@ -186,7 +186,7 @@ body {
     cursor: pointer;
 }
 
-.character-container {
+.card-container {
     display: flex;
     line-height: 1.2;
     padding: 25px;
@@ -194,12 +194,12 @@ body {
     border-top: 2px solid #151515;
 }
 
-.character-info {
+.card-info {
     flex: 1;
     margin-right: 25px;
 }
 
-.character-info-item-summary {
+.card-info-item-summary {
     font-size: 25px;
     font-weight: 400;
     color: #00e1ff;
@@ -208,17 +208,17 @@ body {
     cursor: pointer;
 }
 
-.character-info-item-data {
+.card-info-item-data {
     font-size: 22px;
     margin-bottom: 10px;
 }
 
-.character-image-container {
+.card-image-container {
     flex: 1;
     display: flex;
 }
 
-.character-image {
+.card-image {
     max-width: 100%;
     margin: auto;
     border: 5px solid #fcfcfc;
@@ -249,17 +249,17 @@ body {
 /* Media Queries */
 
 @media (max-width: 600px) {
-    .character-container {
+    .card-container {
         flex-direction: column;
     }
     
-    .character-info {
+    .card-info {
         order: 1;
         margin-top: 25px;
         margin-right: 0;
     }
 
-    .character-image-container {
+    .card-image-container {
         display: block;
     }
 }
