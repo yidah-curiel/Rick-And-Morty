@@ -44,10 +44,11 @@ class Search extends React.Component {
                         handleSearchInput={e => this.handleSearchInput(e.target.value.replace(" ", "+"))}
                         searchType={searchType}
                         handleSearchFilter={this.handleSearchFilter}
+                        history={this.props.history}
                     />
                     {this.props.searching ? <div className="search-loader" /> : null}
                     {this.props.searched && !this.props.searching ?
-                        <SearchOutput/>
+                        <SearchOutput />
                         : null
                     }
                     {this.props.totalPages > 1 && !this.props.searching ?

@@ -7,7 +7,7 @@ import { character, episode, location } from '../redux-saga/request_types';
 
 
 const AllTypes =
-    ['Planet',
+    ['','Planet',
         'Cluster',
         'Space station',
         'Microverse',
@@ -32,7 +32,7 @@ const AllTypes =
         'Spa']
 
 const AllDimensions =
-    [
+    ['',
         'Dimension C-137',
         'unknown',
         'Post-Apocalyptic Dimension',
