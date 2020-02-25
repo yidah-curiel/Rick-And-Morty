@@ -1,28 +1,28 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { changeSearchType } from '../redux-saga/actions';
+//import { Button } from "@material-ui/core";
 
-class Home extends React.Component {
+import HomeNav from '../utils/HomeNav';
 
+function Home({ changeSearchType, history }) {
 
-    render() {
-        return (
-            <div className="navbar">
-                <Link className="nav-link" to="/search/character">
-                    <div>Search Characters</div>
-                </Link>
-                <Link className="nav-link" to="/search/episode">
-                    <div>Search Episodes</div>
-                </Link>
-                <Link className="nav-link" to="/search/location">
-                    <div>Search Locations</div>
-                </Link>
-            </div>
-        );
+    const onNavClick = (type, to) => {
+        history.push(to)
+        changeSearchType(type)
     }
+
+    return (
+      <HomeNav onClick={(type,to)=>onNavClick(type,to)}/>
+    );
+}
+
+const mapDispatch = dispatch => {
+    return {
+        changeSearchType: (type) => dispatch(changeSearchType(type))
+    };
 }
 
 
 
-
-
-export default Home;
+export default connect(null, mapDispatch)(Home);

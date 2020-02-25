@@ -29,13 +29,13 @@ body {
 
 .heading {
     font-family: 'Schoolbell', serif;
-    font-size: 330%;
+    font-size: 450%;
     line-height: 1.0;
     color: #02b1c8;	
     text-shadow: 0.02em 0.02em 0.02em #fa67ce,
                  -0.02em -0.02em 0.02em #7ffa67,
                  0 0 0.2em #7ffa67;
-    animation: textShadow 2s linear infinite alternate;
+    animation: textShadow 2s linear infinite alternate
 }
 
 
@@ -50,7 +50,7 @@ body {
     justify-content: center;
     align-items: center;
 }
-
+/*
 .nav-link {
     font-family: 'Schoolbell', serif;
     font-size: 160%;
@@ -61,6 +61,17 @@ body {
     margin: 20px 0 25px;
     text-shadow: 0.02em 0.02em 0.02em #7ffa67,
                  -0.02em -0.02em 0.02em #7ffa67,
+                 0 0 0.2em #7ffa67;
+}
+*/
+
+.nav-link {
+    margin: 20px;
+    padding: 10px;
+    color: #9b198a;	
+    margin: 20px 0 25px;
+    text-shadow: 0.02em 0.02em 0.02em #faae67,
+                 -0.02em -0.02em 0.02em #c48027,
                  0 0 0.2em #7ffa67;
 }
 
@@ -82,16 +93,19 @@ body {
 }
 
 .search-filters {
-    width: 40%;
+    width: 50%;
     align-self: center;
     align-items: flex-start;
     margin-left: 2%;
     font-family: 'Courier New', Courier, monospace;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-evenly;
     padding-bottom: 2%;
+    flex-wrap: nowrap
 }
+
 
 .search-filters h4 {
     font-size: large;
@@ -106,9 +120,9 @@ body {
     padding: 2px;
 }
 
-.filter-input {
+.filter-inputs {
     width: 100%;
-    margin-left: 3px;
+    margin-left: 3px
 }
 
 .filter-input-label {
@@ -161,19 +175,22 @@ body {
     margin: 0 auto 20px;
 }
 
-/* Characters */
+/* Cards */
 
 .detailsLink {
+    display: flex;
+    flex-direction: column;
     font-family: 'Source Sans Pro', sans-serif;
     color: white;
+    font-size: x-large;
     font-weight: 400;
 }
 
-.character-details {
+.card-details {
     border-bottom: 2px solid #151515;
 }
 
-.character-summary {
+.card-summary {
     font-size: 28px;
     font-weight: 600;
     line-height: 1.2;
@@ -183,7 +200,7 @@ body {
     cursor: pointer;
 }
 
-.character-container {
+.card-container {
     display: flex;
     line-height: 1.2;
     padding: 25px;
@@ -191,12 +208,12 @@ body {
     border-top: 2px solid #151515;
 }
 
-.character-info {
+.card-info {
     flex: 1;
     margin-right: 25px;
 }
 
-.character-info-item-summary {
+.card-info-item-summary {
     font-size: 25px;
     font-weight: 400;
     color: #00e1ff;
@@ -205,17 +222,17 @@ body {
     cursor: pointer;
 }
 
-.character-info-item-data {
+.card-info-item-data {
     font-size: 22px;
     margin-bottom: 10px;
 }
 
-.character-image-container {
+.card-image-container {
     flex: 1;
     display: flex;
 }
 
-.character-image {
+.card-image {
     max-width: 100%;
     margin: auto;
     border: 5px solid #fcfcfc;
@@ -246,17 +263,17 @@ body {
 /* Media Queries */
 
 @media (max-width: 600px) {
-    .character-container {
+    .card-container {
         flex-direction: column;
     }
     
-    .character-info {
+    .card-info {
         order: 1;
         margin-top: 25px;
         margin-right: 0;
     }
 
-    .character-image-container {
+    .card-image-container {
         display: block;
     }
 }
@@ -266,5 +283,6 @@ body {
 @keyframes spin {
     to {
         transform: rotate(1turn);
+        color: rgb(71, 196, 144)
     }
 }

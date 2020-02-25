@@ -12,9 +12,10 @@ function App(){
         <>
             <Route exact path="/" component={Home} /> 
             <Route exact path="/search/:searchType" component={Search} /> 
-            <Route exact path="/results/:list" component={NestedResults} /> 
+            <Route exact path="/results/:title" component={NestedResults} /> 
         </> 
     )
 }
 
 export default App
+
