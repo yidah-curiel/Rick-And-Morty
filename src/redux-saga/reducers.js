@@ -33,11 +33,10 @@ export default function (state = {page:1}, action) {
     case NESTED_SEARCH_TYPE:
       return {
         ...state,
-        searchType: action.newType,
+        nestedType: action.newType,
         resultType: action.resultType,
         searching: true,
         searched: false,
-        results: [],
         nestedResults: [],
         totalPages: 1,
         page: 1,
