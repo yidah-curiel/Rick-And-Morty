@@ -6,8 +6,25 @@ import { makeStyles } from '@material-ui/core/styles';
 import { character, episode, location } from '../redux-saga/request_types';
 
 
+const AllSeasons =
+    [
+        { value: "", label: "" },
+        { value: "S01", label: "Season 1" },
+        { value: "S02", label: "Season 2" },
+        { value: "S03", label: "Season 3" }
+    ]
+
+const AllGenders =
+    [
+        '',
+        'Male',
+        'Female',
+        'Genderless',
+        'Unknown'
+    ]
+
 const AllTypes =
-    ['','Planet',
+    ['', 'Planet',
         'Cluster',
         'Space station',
         'Microverse',
@@ -76,122 +93,100 @@ export {
     AllTypes
 }
 
-
-function Filters({ handleSearchFilter, searchType }) {
+function FilterSelect({ handleSearchFilter, filtersToRender, filterName }) {
+    const filterSelectLabel = filterName.charAt(0).toUpperCase() + filterName.slice(1)
 
     const useStyles = makeStyles({
         root: {
-            color: 'white',
-            '&:before': {
-                borderColor: 'white',
-            },
-            '&:after': {
-                borderColor: 'black',
-            }
+            display: 'flex',
+        },
+        label: {
+            color: '#27c2c7',
+            fontSize: '110%',
+            fontFamily: 'GetSchwifty',
+            textShadow: "-0.05em -0.05em 0.5em #c93920e8, 0.05em 0.05em 0.5em #fa67bd, 0.02em 0.07em 0.7em #3727c9;"
         },
         menu_item: {
-            backgroundColor: 'rgb(71, 196, 144)',
+            backgroundColor: 'white',// 'rgb(71, 196, 144)',
+            fontFamily: 'Yeon Sung',
+            boxShadow: "-0.03em 0.05em 1.5em 0.5em rgba(70, 247, 47, 0.3), 0.03em -0.02em 1em 0.3em rgba(17, 129, 36, 0.3), -0.01em 0.02em 0.5em 0.02em rgba(197, 46, 26, 0.651)"
         },
-        whiteColor: {
-            color: 'white',
+        icon: {
+            color: '#27c2c7',
+        },
+        select: {
+            fontFamily: 'Yeon Sung',
+            color: '#27c2c7',
+            '&:before': {
+                borderColor: 'white',
+            },            
+            '&:after': {
+                borderColor: '#27c2c7',
+            }
         }
     });
 
     const classes = useStyles();
 
+    return (
+        <div className={classes.root}>
+            <InputLabel className={classes.label}>{`${filterSelectLabel}: `}</InputLabel >
+            <Select
+                className={classes.select}
+                onChange={handleSearchFilter}
+                name={filterName}
+                classes={{
+                    icon: classes.icon
+                }}
+            >
+                {filterName === "season" ?
+                    filtersToRender.map((e, i) =>
+                        <MenuItem className={classes.menu_item} key={i} value={e.value}>{e.label}</MenuItem>
+                    )
+                    :
+                    filtersToRender.map((e, i) =>
+                        <MenuItem className={classes.menu_item} key={i} value={e}>{e}</MenuItem>
+                    )}
+
+
+            </Select>
+        </div>
+    )
+}
+
+
+function Filters({ handleSearchFilter, searchType }) {
+
+
+
     switch (searchType) {
         case character:
             return (
                 <div className="search-filters">
-                    <div>
-                        <InputLabel className={classes.root}>Species</InputLabel >
-                        <Select
-                            className={classes.root}
-                            onChange={handleSearchFilter}
-                            name="species"
-                            classes={{
-                                icon: classes.whiteColor
-                            }}
-                        >
-                            <MenuItem className={classes.menu_item} value="" >All</MenuItem>
-                            {AllSpecies.map((e, i) =>
-                                <MenuItem className={classes.menu_item} key={i} value={e}>{e}</MenuItem>
-                            )}
-                        </Select>
-
+                    <div className="filter">
+                        <FilterSelect handleSearchFilter={handleSearchFilter} filtersToRender={AllSpecies} filterName="species" />
                     </div>
-                    <div>
-                        <InputLabel className={classes.root}>Gender</InputLabel>
-                        <Select
-                            className={classes.root}
-                            onChange={handleSearchFilter}
-                            name="gender"
-                            classes={{
-                                icon: classes.whiteColor
-                            }}
-                        >
-                            <MenuItem className={classes.menu_item} value="" defaultValue>All</MenuItem>
-                            <MenuItem className={classes.menu_item} value="female">Female</MenuItem>
-                            <MenuItem className={classes.menu_item} value="male">Male</MenuItem>
-                            <MenuItem className={classes.menu_item} value="genderless">Genderless </MenuItem>
-                            <MenuItem className={classes.menu_item} value="unknown">Unknown </MenuItem>
-                        </Select>
+                    <div className="filter">
+                        <FilterSelect handleSearchFilter={handleSearchFilter} filtersToRender={AllGenders} filterName="gender" />
                     </div>
                 </div>
             )
         case episode:
             return (
-                <div >
-                    <InputLabel className={classes.root}>Season</InputLabel>
-                    <Select
-                        className={classes.root}
-                        onChange={handleSearchFilter}
-                        name="episode"
-                        classes={{
-                            icon: classes.whiteColor
-                        }}
-                    >
-                        <MenuItem className={classes.menu_item} value="" defaultValue>All</MenuItem>
-                        <MenuItem className={classes.menu_item} value="S01">Season 1</MenuItem>
-                        <MenuItem className={classes.menu_item} value="S02">Season 2</MenuItem>
-                        <MenuItem className={classes.menu_item} value="S03">Season 3</MenuItem>
-                    </Select>
+                <div className="search-filters">
+                    <div className='filter'>
+                        <FilterSelect handleSearchFilter={handleSearchFilter} filtersToRender={AllSeasons} filterName="season" />
+                    </div>
                 </div>
             )
         case location:
             return (
                 <div className="search-filters">
-                    <div>
-                        <InputLabel className={classes.root}>Type</InputLabel>
-                        <Select
-                            className={classes.root}
-                            onChange={handleSearchFilter}
-                            name="type"
-                            classes={{
-                                icon: classes.whiteColor
-                            }}
-                        >
-                            <MenuItem className={classes.menu_item} value="" defaultValue>All</MenuItem>
-                            {AllTypes.map((e, i) =>
-                                <MenuItem className={classes.menu_item} id={i} value={e}>{e}</MenuItem>
-                            )}
-                        </Select>
+                    <div className="filter">
+                        <FilterSelect handleSearchFilter={handleSearchFilter} filtersToRender={AllTypes} filterName="type" />
                     </div>
-                    <div>
-                        <InputLabel className={classes.root}>Dimension</InputLabel>
-                        <Select
-                            className={classes.root}
-                            onChange={handleSearchFilter}
-                            name="dimension"
-                            classes={{
-                                icon: classes.whiteColor
-                            }}
-                        >
-                            <MenuItem className={classes.menu_item} value="All" defaultValue>All</MenuItem>
-                            {AllDimensions.map((e, i) =>
-                                <MenuItem className={classes.menu_item} id={i} value={e}>{e}</MenuItem>
-                            )}
-                        </Select>
+                    <div className="filter">
+                        <FilterSelect handleSearchFilter={handleSearchFilter} filtersToRender={AllDimensions} filterName="dimension" />
                     </div>
                 </div>
             )

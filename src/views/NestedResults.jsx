@@ -6,7 +6,7 @@ function NestedResults({ title, resultType, searched }) {
     return (
         <React.Fragment>
             <header>
-                <h1 className="heading">{title} <span>{resultType}</span></h1>
+                <div className="heading-sub">{title} <span>{resultType}</span></div>
             </header>
             <main>
                 {searched ? <SearchOutput renderType="nested" /> 

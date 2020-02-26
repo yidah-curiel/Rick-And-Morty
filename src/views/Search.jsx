@@ -46,7 +46,7 @@ class Search extends React.Component {
                         handleSearchFilter={this.handleSearchFilter}
                         history={this.props.history}
                     />
-                    {this.props.searching ? <div className="search-loader" /> : null}
+                    {this.props.searching ? <><div className="search-loader" /> Squanching</>: null}
                     {this.props.searched && !this.props.searching ?
                         <SearchOutput />
                         : null

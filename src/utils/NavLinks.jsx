@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { ButtonGroup, Button } from '@material-ui/core';
+import { ButtonBase } from '@material-ui/core';
 import { character, episode, location } from '../redux-saga/request_types';
 import { connect } from 'react-redux';
 import { changeSearchType } from '../redux-saga/actions';
@@ -14,12 +14,20 @@ function NavLinks({ searchType, changeSearchType, history }) {
 
     const useStyles = makeStyles({
         root: {
-            marginBottom: '3.5%',
-            color: 'white'
+            margin: '0 0 3.5% 0',
+            padding: '0',
+            color: 'white',
+            display: 'flex',
+            justifyContent: 'space-around',
+            width: '80%',
+            maxWidth: '500px',
         },
         button: {
             color: 'inherit',
-
+            fontFamily: 'Yeon Sung',
+            fontSize: '100%',
+            padding: '2%',      
+            
         }
     });
 
@@ -27,18 +35,18 @@ function NavLinks({ searchType, changeSearchType, history }) {
         switch (searchType) {
             case character:
                 return (
-                    [{ title: 'Search Episodes', type: episode },
-                    { title: 'Search Locations', type: location }]
+                    [{ title: 'Squanch Episodes', type: episode },
+                    { title: 'Squanch Locations', type: location }]
                 )
             case episode:
                 return (
-                    [{ title: 'Search Characters', type: character },
-                    { title: 'Search Locations', type: location }]
+                    [{ title: 'Squanch Characters', type: character },
+                    { title: 'Squanch Locations', type: location }]
                 )
             case location:
                 return (
-                    [{ title: 'Search Characters', type: character },
-                    { title: 'Search Episodes', type: episode }]
+                    [{ title: 'Squanch Characters', type: character },
+                    { title: 'Squanch Episodes', type: episode }]
                 )
             default:
                 return (
@@ -51,22 +59,17 @@ function NavLinks({ searchType, changeSearchType, history }) {
 
     return (
         <div className={classes.root}>
-            <ButtonGroup
-                orientation="horizontal"
-                color="primary"
-                aria-label="horizontal contained primary button group"
-                variant="text"
-            >
+     
                 {links().map ?
                     links().map(link =>
-                        <Button
+                        <ButtonBase
                             className={classes.button}
                             onClick={()=>onNavClick(link.type, `/search/${link.type}`)}
                         >
                             {link.title}
-                        </Button>)
+                        </ButtonBase>
+                      )
                     : null}
-            </ButtonGroup>
         </div>
     )
 }

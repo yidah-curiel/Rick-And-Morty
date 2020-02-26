@@ -10,10 +10,10 @@ function Layout (props) {
 
     return (
         <>
-            {/* React Fragment  */}
-            <header>
-                <Link style={{textDecoration: "none"}} to="/" onClick={onHomeClick}>
-                    <h1 className="heading">Rick <span>And</span> Morty</h1>
+            {/* React Fragment Rickapedia  */}
+            <header className="heading" >
+                <Link style={{textDecoration: "none", color:'#27c2c7'}}  to="/" onClick={onHomeClick}>
+                    <h1>Rick <span> and </span> Morty</h1>
                 </Link>
             </header>
             <main >

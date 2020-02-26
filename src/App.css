@@ -1,7 +1,7 @@
 /* Base Styles */
 
 * {
-    box-sizing: border-box;
+   box-sizing: border-box;
 }
 
 html {
@@ -9,40 +9,83 @@ html {
 }
 
 body {
-    font-family: 'Source Sans Pro', sans-serif;
     font-weight: 400;
-    color: #fff;
+    color: white;
     min-height: 100vh;
     padding: 20px;
     text-align: center;
     text-shadow: 1px 1px 1px #111;
     background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.8)),
-              #111 url(https://www.wallpaperflare.com/static/229/145/81/rick-and-morty-purple-pink-planet-wallpaper.jpg) no-repeat center fixed;
-    background-size: cover;
+              #111 url(https://images.alphacoders.com/876/876589.jpg) no-repeat center fixed;
 }
 
-:focus {
-    outline: 3px solid #02b1c8;
-}
+@font-face {
+    font-family: 'GetSchwifty';
+    src: local('GetSchwifty'), url(./fonts/get_schwifty__a_rick_and_morty_font_by_jonizaak-dajw4u8.ttf) format('truetype');
+  }
 
-/* Heading */
+  @font-face {
+    font-family: 'Title';
+    src: local('Title'), url(./fonts/Frank_Knows.ttf) format('truetype');
+  }
+
+
+/* Heading fa67ce, 7ffa67, b9c927*/
 
 .heading {
-    font-family: 'Schoolbell', serif;
-    font-size: 450%;
+    font-family: 'Title';
+    font-size: 400%;
     line-height: 1.0;
-    color: #02b1c8;	
-    text-shadow: 0.02em 0.02em 0.02em #fa67ce,
-                 -0.02em -0.02em 0.02em #7ffa67,
-                 0 0 0.2em #7ffa67;
-    animation: textShadow 2s linear infinite alternate;
+    color: #27c2c7;	
+    text-shadow: -0.05em -0.05em 0.5em #c93920e8,
+                 0.05em 0.05em 0.5em #7ffa67,
+                 0.02em 0.07em 0.7em #b9c927;
+    padding-bottom: 2%;
+    }
+
+h1 {
     margin: 3.5% 0%;
+    padding: 5% 0%;
+    display: inline;
 }
 
+.heading-sub {
+    font-family: 'Title';
+    font-size: 300%;
+    color: #27c2c7;	
+    text-shadow: -0.05em -0.05em 0.5em #c93920e8,
+                 0.05em 0.05em 0.5em #fa67fa,
+                 0.02em 0.07em 0.7em #3727c9;
+}
+
+.heading-sub {
+    font-family: 'Title';
+    font-size: 300%;
+    color: #27c2c7;	
+    text-shadow: -0.05em -0.05em 0.5em #c93920e8,
+                 0.05em 0.05em 0.5em #fa67fa,
+                 0.02em 0.07em 0.7em #3727c9;
+}
+
+.heading-sub span {
+    text-shadow: -0.05em -0.05em 0.5em #c93920e8,
+    0.05em 0.05em 0.5em #7ffa67,
+    0.02em 0.07em 0.7em #b9c927;
+    font-size: 50%;
+    margin: 0 -3px;
+    vertical-align: middle;
+    color: #27c2c7;	
+}
+
+h1:hover {
+    text-shadow: -0.05em -0.05em 0.5em #c93920e8,
+                 0.05em 0.05em 0.5em #fa67fa,
+                 0.02em 0.07em 0.7em #3727c9;
+}
 
 .heading span {
     font-size: 50%;
-    margin: 0 -12px;
+    margin: 0 -3px;
     vertical-align: middle;
 }
 
@@ -51,29 +94,32 @@ body {
 
 .search {
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    align-items: center;
 }
 
 .search-main {
     height: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    max-width: 900px
 }
 
 .search-filters {
-    width: 50%;
-    max-width: 300px;
-    align-self: center;
-    align-items: flex-start;
-    margin-left: 2%;
     font-family: 'Courier New', Courier, monospace;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 2%;
+    padding: 0% 2% 2% 5% 0%;
     flex-wrap: nowrap
 }
 
+.search-filters .filter {
+    display: flex;
+    justify-content: space-between;
+    padding: 4%
+}
 
 .search-filters h4 {
     font-size: large;
@@ -93,10 +139,6 @@ body {
     margin-left: 3px
 }
 
-.filter-input-label {
-    font-size: small;
-}
-
 .search-loader {
 	width: 50px;
 	height: 50px;
@@ -107,43 +149,52 @@ body {
 	animation: spin 500ms linear infinite;
 }
 
-.search-input-label {
-    display: block;
-    font-size: 140%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.checkbox-label {
-    font-size: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
 
 .search-input {
-    font-family: inherit;
-    font-size: 20px;
+    font-size: 90%;
     max-width: 80%;
     width: 280px;
     height: 35px;
     border: none;
-    border-radius: 15px;
     margin: 10px 0 30px;
     text-align: center;
-    color: #111;
-    background-color: #e5e5e5;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
+    box-shadow: -0.03em 0.02em 1.5em 0.08em #3727c9,
+    -0.01em 0.02em 0.5em 0.02em #fa67bd,
+    -0.04em -0.03em 1em 0.4em #c93920e8;
+    background-color: black;
+    color: #27c2c7;    
+    font-family: 'getSchwifty'
 }
 
 .search-input:focus {
     outline: none;
-    box-shadow: 0 0 0 3px #02b1c8;	
+    background-color: black;
+    color: #27c2c7;
 }
+
+.search-input:hover {
+    outline: none;
+    background-color: #6bd9dd36;
+    box-shadow: -0.03em -0.05em 1.5em 0.12em rgba(86, 175, 14, 0.705),
+    0.03em 0.02em 0.5em 0.05em rgba(17, 129, 36, 0.3),
+    -0.01em -0.02em 1em 0.08em rgba(197, 46, 26, 0.726);
+}
+
 
 .search-output {
     max-width: 750px;
     margin: 0 auto 20px;
+    /*box-shadow: -0.03em 0.05em 2em 1em rgba(70, 247, 47, 0.3),
+                0.03em -0.02em 1.2em 0.7em rgba(17, 129, 36, 0.3),
+                -0.01em 0.02em 0.9em 0.03em rgba(197, 46, 26, 0.39);*/
 }
 
 /* Cards */
+/*
+box-shadow: -0.03em 0.05em 1.5em 0.5em rgba(70, 247, 47, 0.3),
+                0.03em -0.02em 1em 0.3em rgba(17, 129, 36, 0.3),
+                -0.01em 0.02em 0.5em 0.02em rgba(197, 46, 26, 0.651);
+*/
 
 .detailsLink {
     display: flex;
@@ -208,7 +259,9 @@ body {
 }
 
 .no-results {
-    font-size: 30px;
+    font-size: 120%;
+    font-family: 'Yeon Sung', ;
+;
 }
 
 /* Page Navigation */
@@ -254,3 +307,4 @@ body {
         color: rgb(71, 196, 144)
     }
 }
+

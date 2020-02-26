@@ -6,20 +6,20 @@ import { character, episode, location } from '../redux-saga/request_types';
 
 const images = [
   {
-    url: './images/characters.jpg',
-    title: 'Search Characters',
+    url: './images/characters.png',
+    title: 'Characters',
     type: character,
     to: "/search/character"
   },
   {
     url: './images/episodes.jpg',
-    title: 'Search Episodes',
+    title: 'Episodes',
     type: episode,
     to: "/search/episode"
   },
   {
     url: './images/locations.jpg',
-    title: 'Search Locations',
+    title: 'Locations',
     type: location,
     to: "/search/location"
   },
@@ -28,12 +28,11 @@ const images = [
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-    flexDirection: 'column',
     flexWrap: 'wrap',
     minWidth: 300,
     width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingTop: '4%'
   },
   image: {
     position: 'relative',
@@ -52,6 +51,11 @@ const useStyles = makeStyles(theme => ({
       },
       '& $imageTitle': {
         border: '4px solid currentColor',
+        fontSize: 25,
+        color: '#27c2c7',
+        fontFamily: 'GetSchwifty',
+        boxShadow: '-0.04em -0.03em 1em 0.4em #9b27c9',
+        textShadow: '1px 1px 1px #111, -1px -1px 1px #111, 1px -1px 1px #c93920e8, -1px 1px 1px #fa67fa'
       },
     },
   },
@@ -89,6 +93,8 @@ const useStyles = makeStyles(theme => ({
   imageTitle: {
     position: 'relative',
     padding: `${theme.spacing(2)}px ${theme.spacing(4)}px ${theme.spacing(1) + 6}px`,
+    fontFamily: 'Yeon Sung',
+    fontSize: '150%'
   },
   imageMarked: {
     height: 3,
@@ -113,7 +119,7 @@ function HomeNav({ onClick }) {
           className={classes.image}
           focusVisibleClassName={classes.focusVisible}
           style={{
-            width: '50%'//image.width
+            width: '30%'//image.width
           }}
           onClick={()=>onClick(image.type, image.to)}
         >

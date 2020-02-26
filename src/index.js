@@ -9,7 +9,8 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux';
 import { logger } from 'redux-logger';
-
+import './fonts/get_schwifty__a_rick_and_morty_font_by_jonizaak-dajw4u8.ttf';
+import './fonts/Frank_Knows.ttf';
 
 const sagaMiddleware = createSagaMiddleware()
 
