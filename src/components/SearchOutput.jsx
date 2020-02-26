@@ -18,7 +18,8 @@ function SearchOutput({ renderType, searchType, nestedType, results, nestedResul
             {!resultsToRender || resultsToRender.length < 1 ?
                 <div>
                     <p className="no-results">No Results</p>
-                    <p className="no-results">Squanch a different squanch!</p>
+                    <p className="no-results">Life is meaningless and existence is futile.</p>
+                    <p className="no-results">So squanch a different squanch!</p>
                 </div>
                 :
                 renderCard(resultsToRender)
