@@ -134,7 +134,7 @@ function FilterSelect({ handleSearchFilter, filtersToRender, filterName }) {
             <Select
                 className={classes.select}
                 onChange={handleSearchFilter}
-                name={filterName}
+                name={filterName === "season" ? "episode" : filterName}
                 classes={{
                     icon: classes.icon
                 }}
